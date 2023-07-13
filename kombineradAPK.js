@@ -16,12 +16,12 @@
   const priceHomeScreenClass = "css-1kvpmze enp2lf70"; //klass för pris på "hem"skärmen
   const articleNumberProductPageClass = "css-1f2m4s6 enp2lf70"; //artikelnummer på produktsida
   const infoProductPageClass = "css-12l74ml er6ap680"; //burk, volym & alk.% på produktsidan
-  const pricePerLiterClass ="css-19dv3ny enp2lf70"; //pris per liter & pant klass (produktsida)'
-  const valFlaskaBurk = "css-p87zrk e5tdxoe0"; //klass på "option" fliken där man kan välja om det ska vara flaska eller burk. Vanligt vid öl. På produktsidan.
+  const pricePerLiterClass = "css-19dv3ny enp2lf70"; //pris per liter & pant klass (produktsida)'
+  const valFlaskaBurkClass = "css-p87zrk e5tdxoe0"; //klass på "option" fliken där man kan välja om det ska vara flaska eller burk. Vanligt vid öl. På produktsidan.
 
   function init() {
     
-    if(!document.getElementsByClassName(valFlaskaBurk)[0]) { //kollar om man tittar på en produkt med val av flaska eller burk. I så fall ska den alltid uppdateras. 
+    if(!document.getElementsByClassName(valFlaskaBurkClass)[0]) { //kollar om man tittar på en produkt med val av flaska eller burk. I så fall ska den alltid uppdateras. 
       if (document.getElementById('apk1') || (document.getElementById('apkDIV'))) return; //kollar om apk redan står, i så fall avslutas scriptet
     };
 
@@ -38,15 +38,17 @@
           nuvarandeNrTag.appendChild(msg)};
       }};
 
-    if (document.getElementsByClassName(articleNumberProductPageClass)) { //... eller om man är inne på en produktsida
-      let temp = document.getElementsByClassName(articleNumberProductPageClass).item(0); //klassen är artnr.
-      if (temp.lastChild.id !== `apkDIV`) {
-      let msg = document.createElement("div");
-      msg.id = `apkDIV`;
+    if (document.getElementsByClassName(articleNumberProductPageClass).length > 0) { //... eller om man är inne på en produktsida
+      let articleNr = document.getElementsByClassName(articleNumberProductPageClass).item(0); //klassen är artnr.
+      let msg;
+
+      if (articleNr.lastChild.id !== `apkDIV`) {
+        msg = document.createElement("div");
+        msg.id = `apkDIV`;
+        articleNr.appendChild(msg);
+      };
+      
       msg.innerText = `APK ${getApkProduct()} ml/kr`;
-      temp.appendChild(msg);
-    };
-    document.getElementById('apkDIV').innerText = `APK ${getApkProduct()} ml/kr`;
   };
 };
 
